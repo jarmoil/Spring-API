@@ -1,6 +1,7 @@
 package fi.metropolia.jarmoil.Spring_API.controllers;
 
 
+import fi.metropolia.jarmoil.Spring_API.dto.CustomeraddressesDto;
 import fi.metropolia.jarmoil.Spring_API.entity.Customeraddresses;
 import fi.metropolia.jarmoil.Spring_API.repository.CustomeraddressesRepository;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ public class CustomeraddressesController {
     public CustomeraddressesController(CustomeraddressesRepository repository) {
         this.repository = repository;
     }
-
     @GetMapping("{id}")
     public ResponseEntity<Customeraddresses> getCustomeraddresses(@PathVariable String id) {
         return repository.findById(Long.valueOf(id))
