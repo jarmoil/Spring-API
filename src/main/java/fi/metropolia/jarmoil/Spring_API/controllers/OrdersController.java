@@ -17,12 +17,6 @@ public class OrdersController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Orders> getOrderById(@PathVariable Integer id) {
-//        OrderDto dto = orderService.getOrderDto(id);
-//        if (dto == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(dto);
-
         return repository.findById(Long.valueOf(id))
                 .map(order -> ResponseEntity.ok(order))
                 .orElse(ResponseEntity.notFound().build());

@@ -11,7 +11,7 @@ public class Customeraddresses {
     @Column(name = "id")
     private int id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="customer_id")
     private Customers customers;
 
