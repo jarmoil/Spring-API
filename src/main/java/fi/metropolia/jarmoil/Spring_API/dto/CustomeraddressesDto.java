@@ -8,6 +8,7 @@ public class CustomeraddressesDto {
     private String postal_code;
     private String city;
     private String country;
+    private CustomerDto customer;
 
     public int getId() {
         return id;
@@ -52,6 +53,12 @@ public class CustomeraddressesDto {
         this.country = country;
     }
 
+    public CustomerDto getCustomer() {
+        return customer;
+    }
 
+    public void setCustomer(CustomerDto customer) {
+        this.customer = customer;
+    }
 
 }

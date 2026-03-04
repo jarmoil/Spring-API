@@ -1,10 +1,14 @@
 package fi.metropolia.jarmoil.Spring_API.controllers;
 
 
+import fi.metropolia.jarmoil.Spring_API.dto.CustomerDto;
 import fi.metropolia.jarmoil.Spring_API.entity.Customers;
 import fi.metropolia.jarmoil.Spring_API.repository.CustomersRepository;
+import fi.metropolia.jarmoil.Spring_API.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -21,6 +25,12 @@ public class CustomersController {
         return repository.findById(Long.valueOf(id))
                 .map(customer -> ResponseEntity.ok(customer))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/etunimi/{alku}")
+    public ResponseEntity<List<CustomerDto>> getCustomerEtunimiAlkaa(@PathVariable String alku){
+        List<CustomerDto> customers = CustomerService.haeAsiakkaatJoidenNimiAlkaa(alku);
+        return ResponseEntity.ok(customers);
     }
 
     @PostMapping
