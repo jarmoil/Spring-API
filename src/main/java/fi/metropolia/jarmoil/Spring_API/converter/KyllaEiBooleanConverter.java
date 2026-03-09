@@ -28,3 +28,4 @@ public class KyllaEiBooleanConverter implements AttributeConverter<Boolean, Stri
         throw new IllegalArgumentException("Virheellinen k/e-arvo tietokannassa: '" + dbData + "'");
     }
 }
+
