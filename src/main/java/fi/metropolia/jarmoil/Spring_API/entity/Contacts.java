@@ -1,5 +1,6 @@
 package fi.metropolia.jarmoil.Spring_API.entity;
 
+import fi.metropolia.jarmoil.Spring_API.converter.KyllaEiBooleanConverter;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,10 @@ public class Contacts {
 
     @Column(name= "reference", columnDefinition = "CHAR(32)", nullable = false, length = 32)
     private String reference;
+
+    @Convert(converter = KyllaEiBooleanConverter.class)
+    @Column(name = "voimassa", nullable = false, length = 1)
+    private boolean voimassa;
 
     public Contacts() {}
 
@@ -40,6 +45,13 @@ public class Contacts {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public boolean isVoimassa() {
+        return voimassa;
+    }
+    public void setVoimassa(boolean voimassa) {
+        this.voimassa = voimassa;
     }
 
 }
