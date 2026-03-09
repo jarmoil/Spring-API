@@ -1,6 +1,7 @@
 package fi.metropolia.jarmoil.Spring_API.controllers;
 
 
+import fi.metropolia.jarmoil.Spring_API.dto.ContactsDto;
 import fi.metropolia.jarmoil.Spring_API.repository.ContactsRepository;
 import fi.metropolia.jarmoil.Spring_API.entity.Contacts;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,20 @@ public class ContactsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contacts> getContactById(@PathVariable Integer id) {
+    public ResponseEntity<ContactsDto> getContactById(@PathVariable Integer id) {
         return repository.findById(Long.valueOf(id))
-                .map(order -> ResponseEntity.ok(order))
+                .map(contacts -> {
+                    ContactsDto dto = new ContactsDto(
+                            (int) contacts.getId(),
+                            contacts.getEmail(),
+                            contacts.getReference(),
+                            contacts.isVoimassa()
+                    );
+                    return ResponseEntity.ok(dto);
+                })
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public Contacts postContacts(@RequestBody Contacts contacts) {

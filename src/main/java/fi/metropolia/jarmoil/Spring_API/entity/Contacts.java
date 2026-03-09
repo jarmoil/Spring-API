@@ -23,6 +23,9 @@ public class Contacts {
 
     public Contacts() {}
 
+    public Contacts(long id, String email, String reference, boolean voimassa) {
+    }
+
     public long getId() {
         return id;
     }
