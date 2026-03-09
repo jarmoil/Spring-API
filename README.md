@@ -32,10 +32,10 @@ GET /api/customers/{id}
 ```json
 {
   "id": 1,
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "john@example.com",
-  "phone": "+358123456789"
+  "first_name": "Dustin",
+  "last_name": "Carey",
+  "email": "vsmith1@example.com",
+  "phone": "001-789-824-7188x591"
 }
 ```
 
@@ -57,18 +57,32 @@ GET /api/customers/etunimi/{alku}
 ```json
 [
   {
-    "id": 1,
-    "first_name": "John",
-    "last_name": "Doe",
-    "email": "john@example.com",
-    "phone": "+358123456789"
-  }
+    "id": 75,
+    "first_name": "Heather",
+    "last_name": "Montgomery",
+    "email": "andreamiller75@example.com",
+    "phone": "813-681-0242"
+  },
+  {
+    "id": 137,
+    "first_name": "Heather",
+    "last_name": "Tucker",
+    "email": "nguyenalexander137@example.com",
+    "phone": "(842)495-9972"
+  },
+  {
+    "id": 167,
+    "first_name": "Heather",
+    "last_name": "Vazquez",
+    "email": "clarkmario167@example.org",
+    "phone": "+1-871-376-4252x452"
+  },
 ]
 ```
 
 **Esimerkki:**
 ```
-GET /api/customers/etunimi/Jo
+GET /api/customers/etunimi/He
 ```
 
 ---
@@ -139,11 +153,17 @@ GET /api/customeraddresses/{id}
 ```json
 {
   "id": 1,
-  "customer_id": 1,
-  "street_address": "Mannerheimintie 123",
-  "postal_code": "00100",
-  "city": "Helsinki",
-  "country": "Finland"
+  "customers": {
+    "id": 1,
+    "first_name": "Dustin",
+    "last_name": "Carey",
+    "email": "vsmith1@example.com",
+    "phone": "001-789-824-7188x591"
+  },
+  "street_address": "39650 Harrington Plains Suite 474",
+  "postal_code": "95942",
+  "city": "Larryview",
+  "country": "Guadeloupe"
 }
 ```
 
