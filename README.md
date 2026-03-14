@@ -17,6 +17,61 @@ http://localhost:8080/api
 
 ---
 
+# 📘 Swagger / OpenAPI ‑dokumentaatio
+Projektiin on lisätty Swagger UI ja OpenAPI‑dokumentaatio, jotka helpottavat rajapinnan testaamista ja rakenteen hahmottamista selaimessa.
+
+## Swagger UI:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+## OpenAPI-Spesifikaatio
+
+```
+http://localhost:8080/v3/api-docs
+http://localhost:8080/v3/api-docs.yaml
+```
+
+# Miten Swagger on otettu käyttöön?
+
+## Lisätty riippuvuus pom.xml:ään:
+
+```
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.8.5</version>
+</dependency>
+```
+
+# Käyttö
+
+## 1. Käynnistä sovellus:
+
+```
+./mvnw spring-boot:run
+```
+
+## 2. Avaa Swagger UI osoitteesta ``` http://localhost:8080/swagger-ui/index.html ```
+## 3. Selaa endpointteja, katso request/response-mallit ja suorita kokeilukutsuja suoraan selaimesta.
+
+
+### Vinkki: Swaggerin kautta tehtävät kutsut kohdistuvat samoihin REST‑endpointteihin, jotka on kuvattu alempana “API‑Päätepisteet” -osiossa.
+
+# 📘 Huomio Swaggerista
+Swagger‑dokumentaatio ja Swagger UI on jätetty tarkoituksella avoimeksi, koska kyseessä on kouluprojekti, jota ajetaan vain paikallisessa ympäristössä (localhost).
+Projektia ei ole julkaistu internetiin, eikä se käsittele oikeaa henkilötietoa.
+Tuotantoympäristöissä Swagger/UI sekä /v3/api-docs tulisi:
+
+### rajoittaa vain kehittäjille
+### tai suojata autentikoinnilla (esim. Spring Security)
+### tai poistaa kokonaan julkisesta käytöstä
+
+Avoin Swagger helpottaa arviointia, testausta ja kehittämistä, joten se on tässä projektissa sallittu.
+
+---
+
 # 🔐 Tietokannan käyttäjä ja käyttöoikeudet
 
 Sovellusta varten on MariaDB‑tietokantaan luotu erillinen käyttäjä HeidiSQL‑työkalulla.
@@ -95,7 +150,7 @@ GET /api/customers/etunimi/{alku}
     "last_name": "Vazquez",
     "email": "clarkmario167@example.org",
     "phone": "+1-871-376-4252x452"
-  },
+  }
 ]
 ```
 
@@ -482,12 +537,12 @@ FOREIGN KEY (customer_id) REFERENCES customers(id);
 2. **JPA/Hibernate** - 5 entiteettiä
 3. **Custom kyselyt** - findByEtunimiAlkaa()
 4. **DTO-mallit** - Tietojen kapsulointiin
-5. **Service-kerros** - Liiketoimintalogiikka
-6. **Vierasavaimet** - Referenssien eheys
-7. **Indeksit** - Pääavaimet ja FK-indeksit
-8. **Transaktiot** - JPA hallinnoi
-9. **Validointi** - NOT NULL, UNIQUE
-10. **MariaDB** - Relaatiotietokanta
+5. **Custom Converter** - (k/​e ↔︎ boolean KyllaEiBooleanConverter)
+6. **Service-kerros** - Liiketoimintalogiikka
+7. **Vierasavaimet** - Referenssien eheys
+8. **Indeksit** - Pääavaimet ja FK-indeksit
+9. **Transaktiot** - JPA hallinnoi
+10. **Swagger / OpenAPI** -  (UI + JSON/YAML spec) kehityksen ja arvioinnin tueksi
 
 
 **Dokumentaation päivittyneisyys:** 14.3.2026  
