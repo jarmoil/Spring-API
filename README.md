@@ -17,6 +17,25 @@ http://localhost:8080/api
 
 ---
 
+# 🔐 Tietokannan käyttäjä ja käyttöoikeudet
+
+Sovellusta varten on MariaDB‑tietokantaan luotu erillinen käyttäjä HeidiSQL‑työkalulla.
+Käyttäjälle on annettu rajoitetut CRUD‑oikeudet, jotta sovellus voi toimia turvallisesti ilman ylimääräisiä pääsyoikeuksia.
+Käyttäjälle myönnetyt oikeudet:
+
+```
+SELECT – lukeminen
+INSERT – uusien rivien lisääminen
+UPDATE – olemassa olevien rivien muokkaus
+DELETE – rivien poistaminen
+```
+
+## Käyttäjällä ei ole oikeutta:
+
+tehdä skeemamuutoksia (ALTER, DROP, CREATE),
+hallita muita käyttäjiä,
+tai suorittaa järjestelmätason operaatioita.
+
 # API-Päätepisteet
 
 ## Customers (Asiakkaat)
