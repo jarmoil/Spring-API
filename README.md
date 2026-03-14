@@ -184,7 +184,8 @@ GET /api/contacts
   {
     "id": 1,
     "email": "contact@example.com",
-    "reference": "ABC123DEF456789"
+    "reference": "ABC123DEF456789",
+    "voimassa": "true/false"
   }
 ]
 ```
@@ -203,9 +204,13 @@ GET /api/contacts/{id}
 {
   "id": 1,
   "email": "contact@example.com",
-  "reference": "ABC123DEF456789"
+  "reference": "ABC123DEF456789",
+  "voimassa": "k/e"
 }
 ```
+
+**Huom:** Contacts-taulussa boolean-arvo voimassa tallentuu k/e (kyllä/ei) muodossa käyttäen custom-konvertteria KyllaEiBooleanConverter.
+
 
 ---
 
@@ -220,7 +225,9 @@ POST /api/contacts
 ```json
 {
   "email": "contact@example.com",
-  "reference": "ABC123DEF456789"
+  "reference": "ABC123DEF456789",
+  "voimassa": "true/false"
+  
 }
 ```
 
@@ -239,7 +246,8 @@ PUT /api/contacts/{id}
 ```json
 {
   "email": "newemail@example.com",
-  "reference": "XYZ987ABC654321"
+  "reference": "XYZ987ABC654321",
+  "voimassa": "true/false"
 }
 ```
 
@@ -318,11 +326,12 @@ GET /api/orders/{id}
 
 ## Contacts-taulu
 
-| Sarake | Tyyppi | Rajoitukset | Kuvaus |
-|--------|--------|------------|--------|
-| id | INT | PRIMARY KEY | Yhteystiedon tunniste |
-| email | VARCHAR(255) | NOT NULL | Sähköpostiosoite |
-| reference | CHAR(32) | NOT NULL, UNIQUE | 32-merkkinen viitteentunniste |
+| Sarake    | Tyyppi       | Rajoitukset | Kuvaus |
+|-----------|--------------|------------|--------|
+| id        | INT          | PRIMARY KEY | Yhteystiedon tunniste |
+| email     | VARCHAR(255) | NOT NULL | Sähköpostiosoite |
+| reference | CHAR(32)     | NOT NULL, UNIQUE | 32-merkkinen viitteentunniste |
+| voimassa  | CHAR(1)      | ‘k’ / ‘e’ | Voimassaolo (kyllä/ei) |
 
 ---
 
@@ -445,56 +454,6 @@ FOREIGN KEY (customer_id) REFERENCES customers(id);
 └─────────────────────────────┘
 ```
 
-## Entity-Relationship Diagram
-
-```
-┌──────────────┐
-│  Customers   │
-│              │
-│ id (PK)      │──┐
-│ first_name   │  │
-│ last_name    │  │
-│ email (NN)   │  │
-│ phone        │  │
-└──────────────┘  │
-     │            │
-     │ 1:N        │
-     │            ├──────────────────┐
-     │            │                  │
-     ▼            │                  ▼
-┌──────────────┐  │          ┌──────────────┐
-│Orders        │  │          │Customeraddres│
-│              │  │          │             │
-│ id (PK)      │  │          │ id (PK)     │
-│ customer_id  │──┘          │customer_id  │──┐
-│ order_date   │             │street_addr  │  │
-│ delivery_date│             │postal_code  │  │
-│ship_addr_id  │─────────────┤city         │  │
-│ status       │             │country      │  │
-└──────────────┘             └──────────────┘  │
-     │                                         │
-     │ 1:N                                     │
-     ▼                                         │
-┌──────────────┐                               │
-│OrderItems    │                               │
-│              │                               │
-│ order_id(PK) │                               │
-│ product_id(PK)                               │
-│ quantity     │                               │
-│ unit_price   │                               │
-└──────────────┘                               │
-                                               │
-                           ┌──────────────┐    │
-                           │  Contacts    │    │
-                           │              │    │
-                           │ id (PK)      │    │
-                           │ email (NN)   │    │
-                           │reference(UQ) │    │
-                           └──────────────┘    │
-                                               │
-                                    (ei suoraa)
-```
-
 ---
 
 # Yhteenveto Toteutetuista Ominaisuuksista
@@ -505,12 +464,12 @@ FOREIGN KEY (customer_id) REFERENCES customers(id);
 3. **Custom kyselyt** - findByEtunimiAlkaa()
 4. **DTO-mallit** - Tietojen kapsulointiin
 5. **Service-kerros** - Liiketoimintalogiikka
-6. **Vierausavaimet** - Referenssien eheys
+6. **Vierasavaimet** - Referenssien eheys
 7. **Indeksit** - Pääavaimet ja FK-indeksit
 8. **Transaktiot** - JPA hallinnoi
 9. **Validointi** - NOT NULL, UNIQUE
 10. **MariaDB** - Relaatiotietokanta
 
 
-**Dokumentaation päivittyneisyys:** 4.3.2026  
+**Dokumentaation päivittyneisyys:** 14.3.2026  
 **Tekijä:** Jarmo I.
